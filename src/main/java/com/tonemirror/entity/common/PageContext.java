@@ -6,7 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "page_context")
+@Table(
+        name = "page_context",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_page_lang",
+                        columnNames = {"page_id", "lang_id"}
+                )
+        }
+)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PageContext {

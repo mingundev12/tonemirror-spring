@@ -1,13 +1,14 @@
 package com.tonemirror.entity.common;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "page")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Page {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
