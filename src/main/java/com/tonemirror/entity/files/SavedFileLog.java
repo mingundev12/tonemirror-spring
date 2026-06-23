@@ -16,8 +16,11 @@ public class SavedFileLog {
     @Column(name = "file_id")
     private Long fileId;
 
-    @Column(name = "file_url", length = 512, nullable = false)
+    @Column(name = "file_url", length = 512)
     private String fileUrl;
+
+    @Column(name = "origin_file_name", nullable = false)
+    private String originFileName;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -34,8 +37,18 @@ public class SavedFileLog {
     @Column(name = "message", length = 1000)
     private String message;
 
-    public SavedFileLog(String fileUrl) {
+    public SavedFileLog(String originFileName) {
+        this.originFileName = originFileName;
+    }
+
+    public void upload(String fileUrl) {
         this.fileUrl = fileUrl;
+        this.message = "SAVE COMPLETE";
+    }
+
+    public void updateValidationError(String errorMessage) {
+        this.isValid = false;
+        this.message = errorMessage;
     }
 
     @PrePersist
