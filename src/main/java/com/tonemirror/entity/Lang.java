@@ -1,8 +1,13 @@
 package com.tonemirror.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "lang")
+@Getter
+@NoArgsConstructor
 public class Lang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,4 +15,8 @@ public class Lang {
 
     @Column(name = "lang_code", nullable = false, length = 10)
     private String langCode;
+
+    public Lang(String langCode) {
+        this.langCode = langCode;
+    }
 }
