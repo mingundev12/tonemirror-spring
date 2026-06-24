@@ -38,9 +38,10 @@ public class SavedFileLog {
     @Column(name = "message", length = 1000)
     private String message;
 
-    public SavedFileLog(String originFileName) {
-        this.originFileName = originFileName;
-    }
+    // todo : 서비스 도메인에 맞춰 생성자 구성할 것
+//    public SavedFileLog(String originFileName) {
+//        this.originFileName = originFileName;
+//    }
 
     public void upload(String fileUrl) {
         this.fileUrl = fileUrl;

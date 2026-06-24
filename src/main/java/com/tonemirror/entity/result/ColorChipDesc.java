@@ -35,12 +35,13 @@ public class ColorChipDesc {
     @Column(name = "color_name", length = 50)
     private String colorName;
 
-    public ColorChipDesc(ColorChip color, Lang lang, String colorName) {
-        if (color == null || lang == null || colorName == null) {
-            throw new IllegalArgumentException("color, lang, and colorName are mandatory");
-        }
-        this.color = color;
-        this.lang = lang;
-        this.colorName = colorName;
-    }
+    // todo : 서비스 도메인에 맞춰 생성자 구성할 것
+//    public ColorChipDesc(ColorChip color, Lang lang, String colorName) {
+//        if (color == null || lang == null || colorName == null) {
+//            throw new IllegalArgumentException("color, lang, and colorName are mandatory");
+//        }
+//        this.color = color;
+//        this.lang = lang;
+//        this.colorName = colorName;
+//    }
 }

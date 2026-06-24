@@ -17,4 +17,6 @@ public class Tone {
 
     @Column(name = "tone_label", nullable = false)
     private String toneLabel;
+
+    // todo : 서비스 도메인에 맞춰 생성자 구성할 것
 }

@@ -18,7 +18,8 @@ public class Page {
     @Column(name = "page_name", length = 30, nullable = false)
     private String pageName;
 
-    public Page(String pageName) {
-        this.pageName = pageName;
-    }
+    // todo : 서비스 도메인에 맞춰 생성자 구성할 것
+//    public Page(String pageName) {
+//        this.pageName = pageName;
+//    }
 }

@@ -24,4 +24,6 @@ public class ColorChip {
 
     @Column(name = "hex_code", length = 7)
     private String hexCode;
+
+    // todo : 서비스 도메인에 맞춰 생성자 구성할 것
 }

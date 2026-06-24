@@ -23,4 +23,6 @@ public class Member {
 
     @Column(name = "role", length = 10, nullable = false)
     private String role;
+
+    // todo : role enum, password BCryptEncoder 구현시 생성자 만들 것
 }

@@ -40,4 +40,6 @@ public class ToneDesc {
 
     @Column(name = "worst_tip", columnDefinition = "TEXT")
     private String worstTip;
+
+    // todo : 서비스 도메인에 맞춰 생성자 구성할 것
 }

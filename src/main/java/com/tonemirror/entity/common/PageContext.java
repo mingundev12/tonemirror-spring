@@ -34,9 +34,10 @@ public class PageContext {
     @Column(name = "context", columnDefinition = "JSON")
     private String context;
 
-    public PageContext(Page page, Lang lang, String context) {
-        this.page = page;
-        this.lang = lang;
-        this.context = context;
-    }
+    // todo : 서비스 도메인에 맞춰 생성자 구성할 것
+//    public PageContext(Page page, Lang lang, String context) {
+//        this.page = page;
+//        this.lang = lang;
+//        this.context = context;
+//    }
 }
