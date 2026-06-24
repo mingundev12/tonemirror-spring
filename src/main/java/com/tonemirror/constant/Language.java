@@ -17,14 +17,14 @@ public enum Language {
     private final String flag;
 
     // react 페이지 제공용 언어 목록 데이터셋
-    public final static List<Language> langList = Arrays.asList(values());
+    public final static List<Language> languages = Arrays.asList(values());
 
     public static Language fromCode(String code) {
         if (code == null || code.isBlank()) {
             return KO;
         }
 
-        return langList.stream().filter(
+        return languages.stream().filter(
                 lang -> lang.code.equalsIgnoreCase(code))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Invalid language code: " + code));
