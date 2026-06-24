@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PageContextService {
@@ -49,5 +51,15 @@ public class PageContextService {
         } catch (Exception e) {
             throw new IllegalStateException("json parse error");
         }
+    }
+
+    // 초기 데이터셋 존재여부 확인
+    @Transactional(readOnly = true)
+    public boolean hasData() {
+        Long langCount = langRepository.count();
+        Long pageCount = pageRepository.count();
+        Long contextCount = pageContextRepository.count();
+
+        return (langCount > 0 && pageCount > 0 && contextCount > 0);
     }
 }
