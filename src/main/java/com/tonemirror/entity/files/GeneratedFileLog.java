@@ -43,9 +43,4 @@ public class GeneratedFileLog {
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
-
-    public void softDelete() {
-        this.isDeleted = true;
-        this.deletedAt = LocalDateTime.now();
-    }
 }

@@ -30,22 +30,21 @@ public class SavedFileLog {
     private LocalDateTime deletedAt;
 
     @Column(name = "is_valid", nullable = false)
-    private boolean isValid = true;
+    private boolean isValid;
 
     @Column(name = "is_deleted", nullable = false)
-    private boolean isDeleted = false;
+    private boolean isDeleted;
 
     @Column(name = "message", length = 1000)
     private String message;
 
     // todo : 서비스 도메인에 맞춰 생성자 구성할 것
-//    public SavedFileLog(String originFileName) {
-//        this.originFileName = originFileName;
-//    }
-
-    public void upload(String fileUrl) {
+    public SavedFileLog(String originFileName, String fileUrl) {
+        this.originFileName = originFileName;
         this.fileUrl = fileUrl;
-        this.message = "SAVE COMPLETE";
+        this.createdAt = LocalDateTime.now();
+        this.isValid = true;
+        this.isDeleted = false;
     }
 
     public void updateValidationError(String errorMessage) {
