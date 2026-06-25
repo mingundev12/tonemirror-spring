@@ -22,10 +22,12 @@ public class FileLogService {
 
     // 파일 저장
     @Transactional
-    public void saveFile(String originFileName, String fileUrl) {
+    public Long saveFile(String originFileName, String fileUrl) {
         SavedFileLog file = new SavedFileLog(originFileName, fileUrl);
 
         savedFileRepository.save(file);
+//        python 단에서 사용할 GeneratedFileLog.parentFileId 파라미터로 보내기 위해 생성된 id 반환
+        return file.getFileId();
     }
 
     // 파일 삭제
