@@ -62,4 +62,10 @@ public class PageContextService {
 
         return (langCount > 0 && pageCount > 0 && contextCount > 0);
     }
+
+    // todo : *.tsv 에서 page별 컨텍스트 추출하여 DB저장하는 메서드
+    @Transactional
+    public void loadFileAndSaveData(List<String> tsvFileUrls){
+
+    }
 }
