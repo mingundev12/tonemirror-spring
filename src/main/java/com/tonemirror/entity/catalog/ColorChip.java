@@ -1,4 +1,4 @@
-package com.tonemirror.entity.result;
+package com.tonemirror.entity.catalog;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

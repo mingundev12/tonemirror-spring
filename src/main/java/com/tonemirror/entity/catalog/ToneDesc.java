@@ -1,4 +1,4 @@
-package com.tonemirror.entity.result;
+package com.tonemirror.entity.catalog;
 
 import com.tonemirror.entity.common.Lang;
 import jakarta.persistence.*;
