@@ -21,16 +21,12 @@ public class PageContextService {
     private final PageRepository pageRepository;
     private final PageContextRepository pageContextRepository;
     private final ObjectMapper objectMapper;
+    private final LanguageService languageService;
 
     // 언어별 페이지 컨텍스트 제공
     @Transactional(readOnly = true)
     public PageContextResponse getPageContext(String pageName, String langCode) {
-        Language language;
-        try {
-            language = Language.fromCode(langCode);
-        } catch (Exception e) {
-            language = Language.KO;
-        }
+        Language language = languageService.findLanguageFromCode(langCode);
 
         Lang lang = langRepository.findByCode(language.getCode());
         Page page = pageRepository.findByPageName(pageName);
