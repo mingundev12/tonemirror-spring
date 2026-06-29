@@ -14,15 +14,16 @@ import java.util.List;
 @Slf4j
 public class AnalysisPipelineService {
     private final FileSaveService fileSaveService;
-
-//    @Value("${m2m.fastapi-url:http://fastapi-service:8000/ai/analyze}")
-//    private String fastApiUrl;
+    private final FastApiService fastApiService;
 
     public AnalysisResultResponse processPersonalColorAnalysis(List<MultipartFile> files) {
         // 파일 정합성 체크 및 저장
         FileInfoDto targetFile = fileSaveService.saveFile(files);
 
         // 파이썬 서버 전송 (FastApiService 호출해서 처리)
+        String result = fastApiService.requestAnalyzation(targetFile);
+
+        // 결과값 데이터셋 조립 및 리턴
 
         return null;
     }
