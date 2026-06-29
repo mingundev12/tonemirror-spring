@@ -1,5 +1,6 @@
 package com.tonemirror.service;
 
+import com.tonemirror.dto.files.FileInfoDto;
 import com.tonemirror.entity.files.GeneratedFileLog;
 import com.tonemirror.entity.files.SavedFileLog;
 import com.tonemirror.repository.files.GeneratedFileLogRepository;
@@ -22,12 +23,12 @@ public class FileLogService {
 
     // 파일 저장
     @Transactional
-    public Long saveFile(String originFileName, String fileUrl) {
+    public FileInfoDto saveFile(String originFileName, String fileUrl) {
         SavedFileLog file = new SavedFileLog(originFileName, fileUrl);
 
         savedFileRepository.save(file);
-//        python 단에서 사용할 GeneratedFileLog.parentFileId 파라미터로 보내기 위해 생성된 id 반환
-        return file.getFileId();
+//        python 단에서 사용할 GeneratedFileLog.parentFileId 파라미터로 보내기 위해 생성된 id 포함된 객체 반환
+        return new FileInfoDto(file);
     }
 
     // 파일 삭제
