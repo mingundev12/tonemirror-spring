@@ -19,7 +19,8 @@ public class FastApiService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${m2m.fastapi-url:http://fastapi-service:8000/ai/analyze}")
+    // python 서버의 "이미지 전처리" router 엔드포인트로 요청
+    @Value("${m2m.fastapi-url:http://fastapi-service:8000/ai/preprocess}")
     private String fastApiUrl;
 
     public String requestAnalyzation(FileInfoDto targetFile) {
