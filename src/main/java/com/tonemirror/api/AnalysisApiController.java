@@ -1,6 +1,7 @@
 package com.tonemirror.api;
 
 import com.tonemirror.dto.response.AnalysisResultResponse;
+import com.tonemirror.dto.response.ApiResponse;
 import com.tonemirror.service.AnalysisPipelineService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +22,11 @@ public class AnalysisApiController {
     private final AnalysisPipelineService analysisPipelineService;
 
     @PostMapping(path = "")
-    public ResponseEntity<AnalysisResultResponse> uploadAndAnalyze(
+    public ResponseEntity<ApiResponse<AnalysisResultResponse>> uploadAndAnalyze(
             @RequestPart("file") List<MultipartFile> files) {
 
         AnalysisResultResponse response = analysisPipelineService.processPersonalColorAnalysis(files);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(new ApiResponse<>("analyze success", response));
     }
 }
