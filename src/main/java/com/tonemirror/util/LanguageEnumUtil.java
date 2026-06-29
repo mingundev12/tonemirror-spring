@@ -1,9 +1,10 @@
 package com.tonemirror.util;
 
 import com.tonemirror.constant.Language;
-import org.springframework.stereotype.Service;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-@Service
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LanguageEnumUtil {
 
     // 각종 다국어 데이터셋에 대응하기 위해 재사용성이 높은 코드를 별도의 유틸 메서드로 분리
