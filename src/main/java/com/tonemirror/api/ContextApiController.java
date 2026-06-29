@@ -1,5 +1,6 @@
 package com.tonemirror.api;
 
+import com.tonemirror.dto.response.ApiResponse;
 import com.tonemirror.dto.response.PageContextResponse;
 import com.tonemirror.service.PageContextService;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +16,11 @@ public class ContextApiController {
     private final PageContextService service;
 
     @GetMapping("/api/{pageName}")
-    public ResponseEntity<PageContextResponse> getPageContext(
+    public ResponseEntity<ApiResponse<PageContextResponse>> getPageContext(
             @PathVariable String pageName,
             @RequestParam(value = "lang", required = false) String lang
     ) {
         PageContextResponse response = service.getPageContext(pageName, lang);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(new ApiResponse<>("page load success", response));
     }
 }
