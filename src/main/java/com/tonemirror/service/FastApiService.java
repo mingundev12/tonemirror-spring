@@ -19,7 +19,7 @@ public class FastApiService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${m2m.fastapi-url:http://fastapi-service:8000/ai/analyze}")
+    @Value("${m2m.fastapi-url:http://fastapi-service:8000/ai}")
     private String fastApiUrl;
 
     public String requestAnalyzation(FileInfoDto targetFile) {
@@ -30,11 +30,13 @@ public class FastApiService {
         requestBody.put("parentFileId", targetFile.getFileId());
         requestBody.put("filePath", targetFile.getFileUrl());
 
+        // python 서버의 "이미지 전처리" router 엔드포인트로 요청
+        String requestUrl = fastApiUrl + "/preprocess";
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
-        log.info("[▲] M2M Outbound Request to Python Container -> URL: {}", fastApiUrl);
+        log.info("[▲] M2M Outbound Request to Python Container -> URL: {}", requestUrl);
 
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(fastApiUrl, request, String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity(requestUrl, request, String.class);
 
             log.info("[▼] M2M Inbound Response Sync Success.");
             return response.getBody();
