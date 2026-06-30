@@ -19,7 +19,7 @@ public class FastApiService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${m2m.fastapi-url:http://fastapi-service:8000/ai}")
+    @Value("${m2m.fastapi-url:http://'FastApiContainerName':8000/ai}")
     private String fastApiUrl;
 
     public String requestAnalyzation(FileInfoDto targetFile) {
