@@ -6,6 +6,7 @@ import com.tonemirror.entity.common.Lang;
 import com.tonemirror.entity.common.Page;
 import com.tonemirror.entity.common.PageContext;
 import com.tonemirror.repository.common.*;
+import com.tonemirror.util.LanguageEnumUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,12 +26,7 @@ public class PageContextService {
     // 언어별 페이지 컨텍스트 제공
     @Transactional(readOnly = true)
     public PageContextResponse getPageContext(String pageName, String langCode) {
-        Language language;
-        try {
-            language = Language.fromCode(langCode);
-        } catch (Exception e) {
-            language = Language.KO;
-        }
+        Language language = LanguageEnumUtil.findLanguageFromCode(langCode);
 
         Lang lang = langRepository.findByCode(language.getCode());
         Page page = pageRepository.findByPageName(pageName);
