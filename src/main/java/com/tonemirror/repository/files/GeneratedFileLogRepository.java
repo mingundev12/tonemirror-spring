@@ -1,6 +1,7 @@
 package com.tonemirror.repository.files;
 
 import com.tonemirror.entity.files.GeneratedFileLog;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface GeneratedFileLogRepository {
+public interface GeneratedFileLogRepository extends JpaRepository<GeneratedFileLog, Long> {
     List<String> findFileUrlByCreatedAtBefore(LocalDateTime targetTime);
 
     @Modifying(clearAutomatically = true)
