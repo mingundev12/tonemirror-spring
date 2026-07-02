@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class Lang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "lang_id")
     private Long langId;
 
     @Column(name = "code", nullable = false, length = 10)

@@ -21,9 +21,9 @@ public class AnalysisApiController {
 
     @PostMapping("/api/analysis")
     public ResponseEntity<ApiResponse<AnalysisResultResponse>> uploadAndAnalyze(
-            @RequestPart("file") List<MultipartFile> files) {
+            @RequestPart("file") MultipartFile file) {
 
-        AnalysisResultResponse response = analysisPipelineService.processPersonalColorAnalysis(files);
+        AnalysisResultResponse response = analysisPipelineService.processPersonalColorAnalysis(file);
 
         return ResponseEntity.ok(new ApiResponse<>("analyze success", response));
     }

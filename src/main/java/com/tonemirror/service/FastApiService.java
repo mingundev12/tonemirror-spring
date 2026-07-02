@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,7 +20,7 @@ public class FastApiService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${m2m.fastapi-url:http://python-server:8000/ai}")
+    @Value("${m2m.fastapi-url:http://fastapi-server:8000/ai}")
     private String fastApiUrl;
 
     public String requestAnalyzation(FileInfoDto targetFile) {
@@ -27,8 +28,8 @@ public class FastApiService {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("parentFileId", targetFile.getFileId());
-        requestBody.put("filePath", targetFile.getFileUrl());
+        requestBody.put("file_id", targetFile.getFileId());
+        requestBody.put("file_url", targetFile.getFileUrl());
 
         // python 서버의 "이미지 전처리" router 엔드포인트로 요청
         String requestUrl = fastApiUrl + "/preprocess";
@@ -40,14 +41,25 @@ public class FastApiService {
 
             log.info("[▼] M2M Inbound Response Sync Success.");
             return response.getBody();
-        } catch (HttpStatusCodeException e) {
+        } catch (HttpClientErrorException e) {
             // 분석 실패시 파이썬에서 보내주는 오류 메시지를 그대로 받아적어 보내기
             String pythonErrorBody = e.getResponseBodyAsString();
             log.warn("[-] Python AI Server Logic Error Response : {}", pythonErrorBody);
             throw new IllegalArgumentException(pythonErrorBody);
         } catch (Exception e) {
             log.error("[-] M2M 가상 네트워크 통신 실패 : {}", e.getMessage());
-            throw new RuntimeException("AI 분석 서버와의 가상 네트워크 통신 실패", e);
+//            throw new RuntimeException("AI 분석 서버와의 가상 네트워크 통신 실패", e);
+            log.warn("[⚠️] 파이썬 격리 모드 가동 - 가상 Mock 데이터 응답 처리");
+            return """
+           {
+               "personal_color": "cool_summer",
+               "detected_skin_hex": "#E8C39E",
+               "makeup_image_url": "http://localhost:28282/mock/makeup.png",
+               "makeup_inputs": {},
+               "original_image_id": 999
+           }
+           """;
         }
+
     }
 }

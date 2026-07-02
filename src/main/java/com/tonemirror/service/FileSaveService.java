@@ -20,12 +20,12 @@ import java.util.UUID;
 public class FileSaveService {
     private final FileLogService fileLogService;
 
-    @Value("${file.upload-dir:/app/uploads}")
+    @Value("${file.upload-dir:/app/storage}")
     private String uploadDir;
 
-    public FileInfoDto saveFile(List<MultipartFile> files){
+    public FileInfoDto saveFile(MultipartFile file){
         // 파일 정합성 체크
-        MultipartFile originFile = validateFile(files);
+        MultipartFile originFile = validateFile(file);
 
         // 파일 저장 및 기록 생성
         String originalFilename = originFile.getOriginalFilename();
@@ -46,18 +46,17 @@ public class FileSaveService {
         return fileLogService.saveFile(originalFilename, targetFile.getAbsolutePath());
     }
 
-    private MultipartFile validateFile(List<MultipartFile> files){
-        if(files==null || files.isEmpty() || files.get(0).isEmpty()){
+    private MultipartFile validateFile(MultipartFile file){
+        if(file==null || file.isEmpty()){
             throw new IllegalArgumentException("진단할 파일이 존재하지 않습니다.");
         }
 
-        MultipartFile originFile = files.get(0);
-        String contentType = originFile.getContentType();
+        String contentType = file.getContentType();
         if(!AnalyzableFileType.isAnalyzableFileType(contentType)){
             throw new IllegalArgumentException("분석 가능한 이미지 파일 형식이 아닙니다.");
         }
 
-        return originFile;
+        return file;
     }
 
     private String validateFileName(String originalFilename){

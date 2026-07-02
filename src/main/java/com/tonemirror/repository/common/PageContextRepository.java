@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface PageContextRepository extends JpaRepository<PageContext, Long> {
-    PageContext findByLangIdAndPageId(Long langId, Long pageId);
+    PageContext findByLang_LangIdAndPage_PageId(Long langId, Long pageId);
 
 //    Long count();
 }

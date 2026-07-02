@@ -35,7 +35,7 @@ public class PageContextService {
             throw new IllegalArgumentException("there is no page or lang information");
         }
 
-        PageContext pageContext = pageContextRepository.findByLangIdAndPageId(lang.getLangId(), page.getPageId());
+        PageContext pageContext = pageContextRepository.findByLang_LangIdAndPage_PageId(lang.getLangId(), page.getPageId());
 
         if(pageContext == null) {
             throw new IllegalArgumentException("there is no page context information");
@@ -52,9 +52,9 @@ public class PageContextService {
     // 초기 데이터셋 존재여부 확인
     @Transactional(readOnly = true)
     public boolean hasData() {
-        Long langCount = langRepository.count();
-        Long pageCount = pageRepository.count();
-        Long contextCount = pageContextRepository.count();
+        long langCount = langRepository.count();
+        long pageCount = pageRepository.count();
+        long contextCount = pageContextRepository.count();
 
         return (langCount > 0 && pageCount > 0 && contextCount > 0);
     }
