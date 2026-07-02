@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,8 +19,11 @@ import java.util.UUID;
 public class FileSaveService {
     private final FileLogService fileLogService;
 
-    @Value("${file.upload-dir:/app/storage}")
+    @Value("${file.upload-dir}")
     private String uploadDir;
+
+    @Value("${file.base-url}")
+    private String baseUrl;
 
     public FileInfoDto saveFile(MultipartFile file){
         // 파일 정합성 체크
@@ -43,7 +45,8 @@ public class FileSaveService {
             throw new RuntimeException("서버 내부 파일 스토리지 저장 실패", e);
         }
 
-        return fileLogService.saveFile(originalFilename, targetFile.getAbsolutePath());
+        String fileUrl = baseUrl + "/" + storedFilename;
+        return fileLogService.saveFile(originalFilename, fileUrl);
     }
 
     private MultipartFile validateFile(MultipartFile file){

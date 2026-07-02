@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -20,7 +19,7 @@ public class FastApiService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${m2m.fastapi-url:http://fastapi-server:8000/ai}")
+    @Value("${m2m.fastapi-url}")
     private String fastApiUrl;
 
     public String requestAnalyzation(FileInfoDto targetFile) {
@@ -52,10 +51,10 @@ public class FastApiService {
             log.warn("[⚠️] 파이썬 격리 모드 가동 - 가상 Mock 데이터 응답 처리");
             return """
            {
-               "personal_color": "cool_summer",
+               "personal_color": "cool_summer (여름 쿨)",
                "detected_skin_hex": "#E8C39E",
                "makeup_image_url": "http://localhost:28282/mock/makeup.png",
-               "makeup_inputs": {},
+               "makeup_inputs": [],
                "original_image_id": 999
            }
            """;
